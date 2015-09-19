@@ -1,4 +1,5 @@
 #include "HelloWorldScene.h"
+#include "DisplayFunc.h"
 
 USING_NS_CC;
 
@@ -54,7 +55,7 @@ bool HelloWorld::init()
     // add a label shows "Hello World"
     // create and initialize a label
     
-    auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
+/*    auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
     
     // position the label on the center of the screen
     label->setPosition(Vec2(origin.x + visibleSize.width/2,
@@ -62,7 +63,9 @@ bool HelloWorld::init()
 
     // add the label as a child to this layer
     this->addChild(label, 1);
+*/
 
+/*
     // add "HelloWorld" splash screen"
     auto sprite = Sprite::create("HelloWorld.png");
 
@@ -71,10 +74,33 @@ bool HelloWorld::init()
 
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
+*/
+    
+//    DisplayFunc::coupleParticleAction(0, 0);
+    auto yousei = Sprite::create("2-1.png");
+    yousei->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+    yousei->setScale(0.15);
+    yousei->setGlobalZOrder(10.0f);
+    this->addChild(yousei,0);
+    ParticleSystemQuad* particle = ParticleSystemQuad::create("particleTest-3.plist");
+    
+    // パーティクルを開始
+    particle->resetSystem();
+    
+    // パーティクルを表示する場所の設定
+    particle->setPosition(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y);
+    
+    // パーティクルを配置
+    this->addChild(particle);
+    
+    auto point = Point(visibleSize.width*2, visibleSize.height/2 + origin.y);
+    auto move = MoveTo::create(2.0f, point);
+    yousei->runAction(move);
+    
+    
     
     return true;
 }
-
 
 void HelloWorld::menuCloseCallback(Ref* pSender)
 {
